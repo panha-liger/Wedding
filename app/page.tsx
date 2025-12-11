@@ -10,8 +10,14 @@ import { motion } from 'framer-motion'
 // ============================================================
 import heroBackground from '../public/assets/hero/Hero_background.png'
 import bvFrameMiddle from '../public/assets/hero/bvFrameMiddle.png'
-// import coupleWideImage from '@/public/wedding/couple-wide.jpg'
-// import butterflyImage from '@/public/wedding/butterfly.png'
+// NAMES BANNER IMAGES
+import namesBannerBackground from '../public/assets/names-banner/background.png'
+import frontCoupleImage from '../public/assets/names-banner/frontCoupleImage.png'
+import namesImage from '../public/assets/names-banner/name.png'
+// STORY SECTION IMAGES
+import storyBackground from '../public/assets/story/background3.png'
+import storyTop from '../public/assets/story/top.png'
+import storyDown from '../public/assets/story/down.png'
 // import storyPhoto1 from '@/public/wedding/story-photo-1.jpg'
 // import storyPhoto2 from '@/public/wedding/story-photo-2.jpg'
 // import calendarImage from '@/public/wedding/calendar-december.png'
@@ -152,7 +158,7 @@ const fadeInUp = {
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.8, ease: 'easeOut' }
+    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }
   }
 }
 
@@ -169,7 +175,7 @@ const scaleIn = {
   visible: { 
     opacity: 1, 
     scale: 1,
-    transition: { duration: 0.8 }
+    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }
   }
 }
 
@@ -178,7 +184,7 @@ const floatingAnimation = {
   transition: {
     duration: 6,
     repeat: Infinity,
-    ease: 'easeInOut'
+    ease: [0.42, 0, 0.58, 1] as const
   }
 }
 
@@ -240,37 +246,38 @@ function HeroSection() {
 
       {/* Main content */}
       <motion.div 
-        className="relative z-10 text-center px-6 max-w-2xl"
+        className="relative z-10 text-center px-4 sm:px-6 w-full max-w-7xl mx-auto"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
       >
         {/* Khmer title */}
-        <h1 className="font-khmer text-3xl md:text-4xl lg:text-5xl text-white mb-4 leading-tight drop-shadow-lg">
+        <h1 className="font-khmer text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white mb-3 sm:mb-4 leading-tight drop-shadow-lg px-2">
           សំពះមង្គលការសំពេជ្យ
         </h1>
         
-        <p className="font-english text-xl md:text-2xl text-white/95 mb-12 tracking-wide italic drop-shadow-md">
+        <p className="font-english text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 sm:mb-10 md:mb-12 tracking-wide italic drop-shadow-md px-2">
           Celebrate the union of...
         </p>
 
         {/* Monogram frame with បវ */}
         <motion.div 
-          className="relative mx-auto w-80 md:w-96 mb-12"
+          className="relative mx-auto w-64 sm:w-72 md:w-80 lg:w-96 xl:w-[28rem] mb-8 sm:mb-10 md:mb-12 px-4"
           variants={scaleIn}
         >
           <Image 
             src={bvFrameMiddle} 
             alt="Wedding Monogram" 
-            width={400} 
-            height={400}
+            width={500} 
+            height={500}
             className="w-full h-auto drop-shadow-2xl"
+            priority
           />
         </motion.div>
 
         {/* Bottom Khmer paragraph */}
         <motion.p 
-          className="font-khmer text-sm md:text-base lg:text-lg text-white leading-relaxed max-w-lg mx-auto drop-shadow-lg"
+          className="font-khmer text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white leading-relaxed sm:leading-loose max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto drop-shadow-lg px-4"
           variants={fadeInUp}
         >
           អាណិតិថិយសស្ត្រឃ្លោងម្លោងព្រីយូ
@@ -308,119 +315,181 @@ function HeroSection() {
 // ============================================================
 function NamesBanner() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Couple wide image - TODO: Replace with actual photo */}
-      <div className="absolute inset-0">
-        {/* <Image src={coupleWideImage} alt="Panharith & Amrithwatey" fill className="object-cover" /> */}
-        <div className="w-full h-full bg-gradient-to-br from-green-800 to-green-600" />
-        {/* Dark gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
+    <motion.section 
+      className="relative w-full max-w-[430px] md:max-w-[480px] mx-auto aspect-[9/16] overflow-hidden"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      {/* Blurred background layer */}
+      <div className="absolute inset-0 -z-10">
+        <Image 
+          src={namesBannerBackground} 
+          alt="Wedding background" 
+          fill 
+          className="object-cover"
+          quality={90}
+          priority
+        />
       </div>
 
-      {/* Names */}
-      <motion.div 
-        className="relative z-10 text-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-      >
-        <h2 className="font-english text-5xl md:text-6xl lg:text-7xl text-white mb-4 tracking-wide drop-shadow-lg">
-          Panharith
-        </h2>
-        
-        <motion.div 
-          className="relative my-8"
-          animate={{ rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 4, repeat: Infinity }}
+      {/* Names PNG - upper middle */}
+      <div className="absolute inset-x-0 top-[28%] z-30 flex justify-center px-4">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
-          {/* Butterfly decoration - TODO: Replace with actual image */}
-          <div className="absolute -top-8 -right-16 w-12 h-12">
-            {/* <Image src={butterflyImage} alt="" width={48} height={48} /> */}
-            <div className="w-full h-full bg-white/20 rounded-full" />
-          </div>
-          
-          <span className="font-english text-4xl md:text-5xl text-white/90 drop-shadow-lg">
-            &
-          </span>
+          <Image 
+            src={namesImage}
+            alt="Panharith & Amrithwatey"
+            width={400}
+            height={250}
+            className="w-[72%] min-w-[260px] max-w-sm object-contain drop-shadow-lg"
+          />
         </motion.div>
-        
-        <h2 className="font-english text-5xl md:text-6xl lg:text-7xl text-white mt-4 tracking-wide drop-shadow-lg">
-          Amrithwatey
-        </h2>
+      </div>
+
+      {/* Foreground couple PNG - bottom center with full body and grass visible */}
+      <div className="absolute inset-x-0 bottom-0 z-20 flex justify-center items-end">
+        <motion.div
+          className="relative w-full h-[82%]"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          <Image 
+            src={frontCoupleImage}
+            alt="Panharith and Amrithwatey"
+            fill
+            className="object-contain"
+            style={{ objectPosition: '50% 100%' }}
+            priority
+          />
+        </motion.div>
+      </div>
+
+      {/* Optional: Flying birds video - top left */}
+      <motion.div 
+        className="absolute top-4 left-4 w-24 h-24 sm:w-32 sm:h-32 z-10"
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.2, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-contain"
+        >
+          <source src="/assets/names-banner/birdFlying.mov" type="video/quicktime" />
+          <source src="/assets/names-banner/birdFlying.mp4" type="video/mp4" />
+        </video>
       </motion.div>
-    </section>
+
+      {/* Optional: Butterfly video - near names */}
+      <motion.div 
+        className="absolute top-[15%] right-4 w-16 h-16 sm:w-20 sm:h-20 z-30"
+        animate={{ 
+          y: [0, -8, 0],
+          rotate: [0, 5, -5, 0]
+        }}
+        transition={{ 
+          duration: 3,
+          repeat: Infinity,
+          ease: [0.42, 0, 0.58, 1] as const
+        }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-contain"
+        >
+          <source src="/assets/names-banner/butterfly.mov" type="video/quicktime" />
+          <source src="/assets/names-banner/butterfly.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
+    </motion.section>
   )
 }
 
 // ============================================================
 // STORY SECTION
 // ============================================================
-function StorySection({ language }: { language: Language }) {
+function StorySection() {
   return (
-    <section className="relative py-20 bg-[#18280f] overflow-hidden">
-      {/* Background cloud shapes */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-green-900/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-green-900/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+    <motion.section
+      className="relative w-full max-w-[430px] md:max-w-[480px] mx-auto aspect-[9/16] overflow-hidden"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
+    >
+      {/* Background */}
+      <Image
+        src={storyBackground}
+        alt="Story background"
+        fill
+        className="object-cover"
+        priority
+      />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
-        {/* Top-left photo card */}
-        <motion.div 
-          className="relative w-48 md:w-64 h-64 md:h-80 mb-12 -ml-4"
-          initial={{ opacity: 0, rotate: -12, x: -50 }}
-          whileInView={{ opacity: 1, rotate: -6, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="absolute inset-0 bg-white p-3 shadow-2xl transform rotate-[-6deg]">
-            {/* TODO: <Image src={storyPhoto1} alt="" fill className="object-cover" /> */}
-            <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600" />
-          </div>
-        </motion.div>
+      {/* Top decorative image (tilted, top-left) */}
+      <motion.div
+        className="absolute top-3 sm:top-5 left-1 sm:left-3 z-20"
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] as const }}
+      >
+        <Image
+          src={storyTop}
+          alt="Story top"
+          width={300}
+          height={200}
+          className="w-[62%] sm:w-[56%] max-w-sm object-contain drop-shadow-2xl -rotate-8"
+        />
+      </motion.div>
 
-        {/* Story content */}
-        <motion.div 
-          className="text-center mb-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-        >
-          <h3 className="font-english text-4xl md:text-5xl text-white mb-8">
-            When Did We Meet?
-          </h3>
-          
-          {/* TODO: Replace with actual story text in both languages */}
-          <p className="font-english text-base md:text-lg text-white/80 leading-relaxed max-w-md mx-auto">
-            {language === 'kh' ? (
-              'សូមអញ្ជើញ ឱកាសឲ្យពួកយើងបានជួបជុំ មានរោគរាយ។ អ្នកគ្រប់គ្នាអាចរីករាយជាមួយយើង នៅក្នុងថ្ងៃពិសេសនេះ។ សូមអរគុណចំពោះការចូលរួម និងការគាំទ្ររបស់អ្នក។'
-            ) : (
-              'Sagittis adipiscing posuere id adipiscing aliquam posuere. Aliquet faucibus duis accumsan aliquet tempor diam dignissim suscipit. Nibh urna ut diam fames. Sagittis adipiscing posuere id adipiscing aliquam posuere.'
-            )}
-          </p>
-        </motion.div>
+      {/* Center text block */}
+      <motion.div
+        className="absolute inset-x-8 top-[30%] z-30 text-center text-white space-y-4"
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }}
+      >
+        <h3 className="font-english text-3xl sm:text-4xl drop-shadow-lg">
+          When Did We Meet?
+        </h3>
+        <p className="font-english text-sm sm:text-base leading-relaxed text-white/90 max-w-[260px] sm:max-w-xs mx-auto drop-shadow-md">
+          Sagittis adipiscing posuere id adipiscing aliquam posuere. Aliquet faucibus duis accumsan aliquet tempor diam dignissim suscipit. Nibh urna ut diam fames.
+        </p>
+      </motion.div>
 
-        {/* Bottom-right photo card */}
-        <motion.div 
-          className="relative w-48 md:w-64 h-64 md:h-80 ml-auto -mr-4"
-          initial={{ opacity: 0, rotate: 12, x: 50 }}
-          whileInView={{ opacity: 1, rotate: 6, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <div className="absolute inset-0 bg-white p-3 shadow-2xl transform rotate-[6deg]">
-            {/* TODO: <Image src={storyPhoto2} alt="" fill className="object-cover" /> */}
-            <div className="w-full h-full bg-gradient-to-br from-green-500 to-green-700" />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Bottom cloud decoration */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 opacity-30">
-        {/* TODO: <Image src={cloudDecor} alt="" fill className="object-cover" /> */}
-        <div className="w-full h-full bg-gradient-to-t from-white/5 to-transparent" />
-      </div>
-    </section>
+      {/* Bottom decorative image (tilted, bottom-right) */}
+      <motion.div
+        className="absolute bottom-5 sm:bottom-8 right-[-10%] sm:right-5 z-20"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }}
+      >
+        <Image
+          src={storyDown}
+          alt="Story bottom"
+          width={240}
+          height={300}
+          className="w-[52%] sm:w-[46%] max-w-sm object-contain drop-shadow-2xl rotate-10 translate-x-[60%]"
+        />
+      </motion.div>
+    </motion.section>
   )
 }
 
@@ -747,7 +816,7 @@ export default function MainPage() {
       
       <HeroSection />
       <NamesBanner />
-      <StorySection language={language} />
+      <StorySection />
       <CalendarSection />
       <ProgramSection />
       <MapSection />
