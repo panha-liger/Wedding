@@ -4,31 +4,32 @@
 
 @layer utilities {
   .font-khmer {
-    font-family: 'Khmer OS Muol Light', 'Noto Sans Khmer', sans-serif;
+    font-family: var(--font-khmer), 'Khmer OS Muol Light', 'Noto Sans Khmer', sans-serif;
+    font-weight: 400;
+  }
+
+  .font-kantumruy {
+    font-family: var(--font-kantumruy), 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+    font-weight: 400;
   }
   
   .font-english {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: var(--font-english), 'Cormorant Garamond', Georgia, serif;
   }
   
   .font-script {
-    font-family: 'Alex Brush', cursive;
+    font-family: var(--font-script), 'Alex Brush', cursive;
   }
 }
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
+  color: #f6f1e6;
+  background-color: #18280f;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #18280f;
+  color: #f6f1e6;
+  font-family: var(--font-english), 'Cormorant Garamond', Georgia, serif;
 }
 

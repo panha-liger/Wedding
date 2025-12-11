@@ -1,5 +1,42 @@
 import type { Metadata } from 'next'
+import localFont from 'next/font/local'
 import './globals.css'
+
+const khmerFont = localFont({
+  src: '../public/fonts/Moul-Regular.ttf',
+  variable: '--font-khmer',
+  weight: '400',
+  style: 'normal',
+  display: 'swap',
+  fallback: ['Khmer OS Muol Light', 'Moul', 'Noto Sans Khmer', 'sans-serif'],
+})
+
+const kantumruyFont = localFont({
+  src: '../public/fonts/KantumruyPro-VariableFont_wght.ttf',
+  variable: '--font-kantumruy',
+  weight: '200 700',
+  style: 'normal',
+  display: 'swap',
+  fallback: ['Kantumruy Pro', 'Noto Sans Khmer', 'sans-serif'],
+})
+
+const englishFont = localFont({
+  src: '../public/fonts/CormorantGaramond-VariableFont_wght.ttf',
+  variable: '--font-english',
+  weight: '400 700',
+  style: 'normal',
+  display: 'swap',
+  fallback: ['Cormorant Garamond', 'Georgia', 'serif'],
+})
+
+const scriptFont = localFont({
+  src: '../public/fonts/AlexBrush-Regular.ttf',
+  variable: '--font-script',
+  weight: '400',
+  style: 'normal',
+  display: 'swap',
+  fallback: ['Alex Brush', 'cursive'],
+})
 
 export const metadata: Metadata = {
   title: 'Wedding Website',
@@ -12,13 +49,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-      </head>
-      <body className="antialiased">
+    <html lang="en" className="bg-[#18280f] text-white">
+      <body className={`${khmerFont.variable} ${kantumruyFont.variable} ${englishFont.variable} ${scriptFont.variable} antialiased bg-[#18280f] text-white`}>
         {children}
       </body>
     </html>

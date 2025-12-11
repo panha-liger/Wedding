@@ -1,34 +1,40 @@
+
+////figma start
 'use client'
 
-import { useState } from 'react'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
 
 // ============================================================
 // HERO SECTION IMAGES
 // ============================================================
-import heroBackground from '../public/assets/hero/Hero_background.png'
 import bvFrameMiddle from '../public/assets/hero/bvFrameMiddle.png'
+import heroBackground from '../public/assets/hero/Hero_background.png'
 // NAMES BANNER IMAGES
+import foregroundCouple from '../public/assets/names-banner/@foreground-couple.png'
 import namesBannerBackground from '../public/assets/names-banner/background.png'
-import frontCoupleImage from '../public/assets/names-banner/frontCoupleImage.png'
 import namesImage from '../public/assets/names-banner/name.png'
 // STORY SECTION IMAGES
 import storyBackground from '../public/assets/story/background3.png'
-import storyTop from '../public/assets/story/top.png'
 import storyDown from '../public/assets/story/down.png'
-// import storyPhoto1 from '@/public/wedding/story-photo-1.jpg'
-// import storyPhoto2 from '@/public/wedding/story-photo-2.jpg'
-// import calendarImage from '@/public/wedding/calendar-december.png'
-// import swanLeft from '@/public/wedding/swan-left.png'
-// import swanRight from '@/public/wedding/swan-right.png'
-// import cupidImage from '@/public/wedding/cupid.png'
-// import timelinePhoto1 from '@/public/wedding/timeline-photo-1.jpg'
-// import timelinePhoto2 from '@/public/wedding/timeline-photo-2.jpg'
-// import timelinePhoto3 from '@/public/wedding/timeline-photo-3.jpg'
-// import coupleWalkingImage from '@/public/wedding/couple-walking.jpg'
-// import cloudDecor from '@/public/wedding/cloud-watercolor.png'
+import storyTop from '../public/assets/story/top.png'
+// CALENDAR SECTION IMAGES
+import calendarBackground from '../public/assets/calendar/background.png'
+import calendarPicker from '../public/assets/calendar/Calendar Picker.png'
+import calendarImage188 from '../public/assets/calendar/image 188 (1).png'
+// TIMELINE ASSETS
+import backgroundPolaroidAlt from '../public/assets/timeline/Background Polaroid-1.png'
+import backgroundPolaroid from '../public/assets/timeline/Background Polaroid.png'
+import cherubLeft from '../public/assets/timeline/Group 183.png'
+import cherubRight from '../public/assets/timeline/Group 184.png'
+import cloudLeft from '../public/assets/timeline/image 216.png'
+import cloudRight from '../public/assets/timeline/image 217.png'
+import cloudMid from '../public/assets/timeline/image 218.png'
+import timelineBgTop from '../public/assets/timeline/ONL01533_.png'
+import polaroidStack from '../public/assets/timeline/Polaroid Stack.png'
+import polaroid from '../public/assets/timeline/Polaroid.png'
 
 // ============================================================
 // TODO: Update this with your actual Google Maps embed URL
@@ -199,28 +205,33 @@ function LanguageToggle({
   setLanguage: (lang: Language) => void 
 }) {
   return (
-    <div className="fixed top-6 right-6 z-50 flex gap-2 bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
+    <motion.div 
+      className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex gap-1.5 bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 shadow-lg"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+    >
       <button
         onClick={() => setLanguage('kh')}
-        className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+        className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
           language === 'kh' 
-            ? 'bg-white text-green-900' 
-            : 'text-white/70 hover:text-white'
+            ? 'bg-white text-[#18280f] shadow-md' 
+            : 'text-white/70 hover:text-white hover:bg-white/5'
         }`}
       >
         KH
       </button>
       <button
         onClick={() => setLanguage('en')}
-        className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+        className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
           language === 'en' 
-            ? 'bg-white text-green-900' 
-            : 'text-white/70 hover:text-white'
+            ? 'bg-white text-[#18280f] shadow-md' 
+            : 'text-white/70 hover:text-white hover:bg-white/5'
         }`}
       >
         EN
       </button>
-    </div>
+    </motion.div>
   )
 }
 
@@ -241,7 +252,7 @@ function HeroSection() {
           quality={90}
         />
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/35" />
       </div>
 
       {/* Main content */}
@@ -251,18 +262,23 @@ function HeroSection() {
         animate="visible"
         variants={fadeIn}
       >
-        {/* Khmer title */}
-        <h1 className="font-khmer text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white mb-3 sm:mb-4 leading-tight drop-shadow-lg px-2">
-          សំពះមង្គលការសំពេជ្យ
+        {/* Khmer heading */}
+        <h1 className="font-khmer text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white mb-3 sm:mb-4 leading-[1.15] drop-shadow-[0_4px_8px_rgba(0,0,0,0.35)] px-2">
+          សិរីមង្គលអាពាហ៍ពិពាហ៍
         </h1>
-        
-        <p className="font-english text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 sm:mb-10 md:mb-12 tracking-wide italic drop-shadow-md px-2">
+
+        {/* Script names to mirror Figma title treatment */}
+        <p className="font-script text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] text-white/95 mb-6 sm:mb-8 md:mb-10 tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)] px-2">
           Celebrate the union of...
         </p>
 
+        {/* <p className="font-english text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-10 sm:mb-12 md:mb-16 tracking-[0.08em] italic drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)] px-2">
+          Celebrate the union of two families
+        </p> */}
+
         {/* Monogram frame with បវ */}
         <motion.div 
-          className="relative mx-auto w-64 sm:w-72 md:w-80 lg:w-96 xl:w-[28rem] mb-8 sm:mb-10 md:mb-12 px-4"
+          className="relative mx-auto w-64 sm:w-72 md:w-80 lg:w-96 xl:w-[28rem] mb-10 sm:mb-12 md:mb-16 px-4"
           variants={scaleIn}
         >
           <Image 
@@ -270,40 +286,36 @@ function HeroSection() {
             alt="Wedding Monogram" 
             width={500} 
             height={500}
-            className="w-full h-auto drop-shadow-2xl"
+            className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.4)]"
             priority
           />
         </motion.div>
 
         {/* Bottom Khmer paragraph */}
+ {/* Khmer heading */}
+        <h1 className="font-khmer text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white mb-3 sm:mb-4 leading-[1.15] drop-shadow-[0_4px_8px_rgba(0,0,0,0.35)] px-2 text-center">
+        មានកិត្តិយសសូមគោរពអញ្ជើញ
+        </h1>
         <motion.p 
-          className="font-khmer text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white leading-relaxed sm:leading-loose max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto drop-shadow-lg px-4"
+          className="font-kantumruy text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white leading-[1.8] sm:leading-[2] max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] px-4"
           variants={fadeInUp}
         >
-          អាណិតិថិយសស្ត្រឃ្លោងម្លោងព្រីយូ
-          <br />
-          សំណុំ និកខុផណ លោកង្សាៗ លោកមឹ៉កពហ្មា
-          <br />
-          អ្នកណគ្មោ ពុញ្ញា លោក លោកស័ស អ្នកគំង កន្លា
-          <br />
-          ចំណូលមាងឹទី នឹងម៉ាត្រូវៀនូស
-          <br />
-          ដំរ៉ូវលឹទ្រនោ សំុសព និយមិល
-          <br />
-          គុងកិនៃក្នាកណាភ្លកវរ គុនៀស គុនស
-          <br />
-          រពសវផាគិនី
+          សម្តេច ឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាង កញ្ញា ចូលរួមជាអធិបតី និងជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធពរជ័យ សិរីសួស្តី ជ័យមង្គល ក្នុងពិធីរៀបអាពាហ៍ពិពាហ៍ កូនប្រុស កូនស្រី របស់យើងខ្ញុំ
         </motion.p>
       </motion.div>
 
       {/* Scroll indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10"
         animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        transition={{ duration: 2, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const }}
       >
-        <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2 backdrop-blur-sm">
-          <div className="w-1 h-2 bg-white/60 rounded-full" />
+        <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2 backdrop-blur-sm shadow-lg">
+          <motion.div 
+            className="w-1 h-2 bg-white/60 rounded-full"
+            animate={{ y: [0, 4, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const }}
+          />
         </div>
       </motion.div>
     </section>
@@ -316,57 +328,60 @@ function HeroSection() {
 function NamesBanner() {
   return (
     <motion.section 
-      className="relative w-full max-w-[430px] md:max-w-[480px] mx-auto aspect-[9/16] overflow-hidden"
+      className="relative w-full max-w-[430px] mx-auto aspect-[393/852] overflow-hidden my-8 md:my-12"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
     >
-      {/* Blurred background layer */}
-      <div className="absolute inset-0 -z-10">
-        <Image 
-          src={namesBannerBackground} 
-          alt="Wedding background" 
-          fill 
-          className="object-cover"
+      {/* Blurred background with vignette */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <Image
+          src={namesBannerBackground}
+          alt="Wedding background"
+          fill
+          className="object-cover blur-[8px]"
           quality={90}
           priority
         />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#324120_24.16%,rgba(0,0,0,0.5)_36.57%,rgba(0,0,0,0.5)_78.09%,#324120_95.73%)]" />
       </div>
 
       {/* Names PNG - upper middle */}
-      <div className="absolute inset-x-0 top-[28%] z-30 flex justify-center px-4">
+      <div className="absolute inset-x-0 top-[22.5%] z-30 flex justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }}
         >
           <Image 
             src={namesImage}
             alt="Panharith & Amrithwatey"
             width={400}
             height={250}
-            className="w-[72%] min-w-[260px] max-w-sm object-contain drop-shadow-lg"
+            className="w-[72%] min-w-[240px] max-w-[320px] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
+            priority
           />
         </motion.div>
       </div>
 
-      {/* Foreground couple PNG - bottom center with full body and grass visible */}
-      <div className="absolute inset-x-0 bottom-0 z-20 flex justify-center items-end">
+      {/* Foreground couple layer */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center items-end px-2 sm:px-4">
         <motion.div
-          className="relative w-full h-[82%]"
-          initial={{ opacity: 0, y: 50 }}
+          className="relative w-full max-w-[420px] h-[65%]"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] as const }}
         >
-          <Image 
-            src={frontCoupleImage}
-            alt="Panharith and Amrithwatey"
+          <Image
+            src={foregroundCouple}
+            alt="Couple foreground"
             fill
             className="object-contain"
             style={{ objectPosition: '50% 100%' }}
+            sizes="(min-width: 768px) 400px, 92vw"
             priority
           />
         </motion.div>
@@ -374,9 +389,9 @@ function NamesBanner() {
 
       {/* Optional: Flying birds video - top left */}
       <motion.div 
-        className="absolute top-4 left-4 w-24 h-24 sm:w-32 sm:h-32 z-10"
-        initial={{ opacity: 0, x: -30 }}
-        animate={{ opacity: 1, x: 0 }}
+        className="absolute top-3 left-3 sm:top-4 sm:left-4 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 z-10"
+        initial={{ opacity: 0, x: -30, scale: 0.8 }}
+        animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ duration: 1.2, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
       >
         <video
@@ -384,7 +399,7 @@ function NamesBanner() {
           loop
           muted
           playsInline
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain drop-shadow-lg"
         >
           <source src="/assets/names-banner/birdFlying.mov" type="video/quicktime" />
           <source src="/assets/names-banner/birdFlying.mp4" type="video/mp4" />
@@ -393,7 +408,7 @@ function NamesBanner() {
 
       {/* Optional: Butterfly video - near names */}
       <motion.div 
-        className="absolute top-[15%] right-4 w-16 h-16 sm:w-20 sm:h-20 z-30"
+        className="absolute top-[15%] right-3 sm:right-4 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 z-30"
         animate={{ 
           y: [0, -8, 0],
           rotate: [0, 5, -5, 0]
@@ -409,7 +424,7 @@ function NamesBanner() {
           loop
           muted
           playsInline
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain drop-shadow-md"
         >
           <source src="/assets/names-banner/butterfly.mov" type="video/quicktime" />
           <source src="/assets/names-banner/butterfly.mp4" type="video/mp4" />
@@ -425,26 +440,28 @@ function NamesBanner() {
 function StorySection() {
   return (
     <motion.section
-      className="relative w-full max-w-[430px] md:max-w-[480px] mx-auto aspect-[9/16] overflow-hidden"
+      className="relative w-full max-w-[430px] md:max-w-[480px] mx-auto aspect-[9/16] overflow-hidden my-8 md:my-12"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
     >
       {/* Background */}
-      <Image
-        src={storyBackground}
-        alt="Story background"
-        fill
-        className="object-cover"
-        priority
-      />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={storyBackground}
+          alt="Story background"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
 
       {/* Top decorative image (tilted, top-left) */}
       <motion.div
         className="absolute top-3 sm:top-5 left-1 sm:left-3 z-20"
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -20, rotate: -12 }}
+        whileInView={{ opacity: 1, y: 0, rotate: -8 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] as const }}
       >
@@ -453,22 +470,22 @@ function StorySection() {
           alt="Story top"
           width={300}
           height={200}
-          className="w-[62%] sm:w-[56%] max-w-sm object-contain drop-shadow-2xl -rotate-8"
+          className="w-[62%] sm:w-[56%] max-w-sm object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.4)]"
         />
       </motion.div>
 
       {/* Center text block */}
       <motion.div
-        className="absolute inset-x-8 top-[30%] z-30 text-center text-white space-y-4"
+        className="absolute inset-x-8 top-[30%] z-30 text-center text-white space-y-4 sm:space-y-5"
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }}
       >
-        <h3 className="font-english text-3xl sm:text-4xl drop-shadow-lg">
+        <h3 className="font-english text-3xl sm:text-4xl drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]">
           When Did We Meet?
         </h3>
-        <p className="font-english text-sm sm:text-base leading-relaxed text-white/90 max-w-[260px] sm:max-w-xs mx-auto drop-shadow-md">
+        <p className="font-english text-sm sm:text-base leading-[1.7] text-white/90 max-w-[260px] sm:max-w-xs mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
           Sagittis adipiscing posuere id adipiscing aliquam posuere. Aliquet faucibus duis accumsan aliquet tempor diam dignissim suscipit. Nibh urna ut diam fames.
         </p>
       </motion.div>
@@ -476,8 +493,8 @@ function StorySection() {
       {/* Bottom decorative image (tilted, bottom-right) */}
       <motion.div
         className="absolute bottom-5 sm:bottom-8 right-[-10%] sm:right-5 z-20"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20, rotate: 5 }}
+        whileInView={{ opacity: 1, y: 0, rotate: 10 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }}
       >
@@ -486,7 +503,7 @@ function StorySection() {
           alt="Story bottom"
           width={240}
           height={300}
-          className="w-[52%] sm:w-[46%] max-w-sm object-contain drop-shadow-2xl rotate-10 translate-x-[60%]"
+          className="w-[52%] sm:w-[46%] max-w-sm object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.4)] translate-x-[60%]"
         />
       </motion.div>
     </motion.section>
@@ -498,55 +515,75 @@ function StorySection() {
 // ============================================================
 function CalendarSection() {
   return (
-    <section className="relative py-20 bg-gradient-to-b from-[#18280f] to-[#102010]">
+    <section className="relative py-16 md:py-20 bg-gradient-to-b from-[#18280f] to-[#102010] overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image 
+          src={calendarBackground} 
+          alt="" 
+          fill 
+          className="object-cover opacity-30" 
+        />
+      </div>
+
       <motion.div 
-        className="max-w-2xl mx-auto px-6 text-center"
+        className="relative z-10 max-w-2xl mx-auto px-6 text-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        {/* TODO: Replace with exact Khmer heading */}
-        <h3 className="font-khmer text-2xl md:text-3xl text-white mb-6 leading-relaxed">
-          កម្មវិធីពិធីសេចក្ដីស្នេហ៍ជីវិត
+        <h3 className="font-khmer text-2xl md:text-3xl text-white mb-4 md:mb-6 leading-relaxed">
+        កាលបរិច្ឆេទនៃកម្មវិធី
         </h3>
-        <p className="font-khmer text-lg text-white/90 mb-4">
-          ថ្ងៃទី២៩ អ្នកឈប់សម្រាក!ម៉ោ ហេ្លាគ ២៤ម៉ោ
+        <p className="font-kantumruy text-base md:text-lg text-white/90 mb-3 md:mb-4">
+        កម្មវិធីនឹងត្រូវធ្វើឡើងរយៈពេល ២ថ្ងៃ
+        </p>
+      
+
+        <p className="font-script text-3xl md:text-4xl lg:text-[2.75rem] text-white/95 mb-6 md:mb-8 tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.3)]">
+          {/* December */}
         </p>
 
-        <p className="font-english text-3xl md:text-4xl text-white/90 mb-8 tracking-wider italic">
-          December
-        </p>
-
-        {/* Calendar image - TODO: Replace with actual transparent PNG */}
+        {/* Calendar image */}
         <motion.div 
-          className="relative max-w-md mx-auto mb-8"
+          className="relative max-w-sm md:max-w-md mx-auto mb-6 md:mb-8"
           variants={scaleIn}
         >
-          {/* TODO: <Image src={calendarImage} alt="December Calendar" width={400} height={450} className="w-full h-auto" /> */}
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-green-700/30 to-green-900/30 rounded-lg border border-white/10 flex items-center justify-center">
-            <span className="font-english text-6xl text-white/50">Calendar</span>
-          </div>
+          <Image 
+            src={calendarPicker} 
+            alt="December Calendar" 
+            width={400} 
+            height={500}
+            className="w-full h-auto drop-shadow-2xl" 
+            priority
+          />
         </motion.div>
 
         {/* Below calendar text */}
-        <p className="font-khmer text-xl md:text-2xl text-white mb-2">
-          ថ្ងៃទី 29 ជាថ្ងៃឈប់សម្រាក!
+        <p className="font-kantumruy text-lg sm:text-xl md:text-2xl lg:text-3xl text-white mb-2">
+          កម្មវិធីនឹងត្រូវធ្វើឡើងរយៈពេល ២ថ្ងៃ
         </p>
-        <p className="font-english text-lg md:text-xl text-white/80 italic tracking-wide">
+        <p className="font-script text-2xl md:text-3xl lg:text-[2.75rem] text-white/95 mb-6 md:mb-8 tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.3)]">
           Enjoy Your Day Off Tomorrow
         </p>
       </motion.div>
 
-      {/* Swan decorations at bottom */}
-      <div className="absolute bottom-8 left-8 w-24 h-24 opacity-80">
-        {/* TODO: <Image src={swanLeft} alt="" width={96} height={96} /> */}
-        <div className="w-full h-full bg-white/10 rounded-full" />
-      </div>
-      <div className="absolute bottom-8 right-8 w-24 h-24 opacity-80">
-        {/* TODO: <Image src={swanRight} alt="" width={96} height={96} /> */}
-        <div className="w-full h-full bg-white/10 rounded-full" />
-      </div>
+      {/* Decorative image at bottom */}
+      <motion.div 
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-32 md:w-40 md:h-40 opacity-60"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 0.6, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
+        <Image 
+          src={calendarImage188} 
+          alt="" 
+          fill
+          className="object-contain"
+        />
+      </motion.div>
     </section>
   )
 }
@@ -594,7 +631,6 @@ function TimelineItem({
       <div className="flex-1">
         {event.photo && (
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden shadow-lg">
-            {/* TODO: Dynamic image based on event.photo */}
             <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600" />
           </div>
         )}
@@ -626,7 +662,6 @@ function ProgramSection() {
               className="w-16 h-16"
               animate={floatingAnimation}
             >
-              {/* TODO: <Image src={cupidImage} alt="" width={64} height={64} /> */}
               <div className="w-full h-full bg-white/10 rounded-full" />
             </motion.div>
             <h3 className="font-khmer text-3xl md:text-4xl text-white">
@@ -657,14 +692,12 @@ function ProgramSection() {
               className="w-16 h-16"
               animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 2 } }}
             >
-              {/* TODO: <Image src={cupidImage} alt="" width={64} height={64} /> */}
               <div className="w-full h-full bg-white/10 rounded-full" />
             </motion.div>
             <h3 className="font-khmer text-3xl md:text-4xl text-white">
               ថ្ងៃទី 2
             </h3>
             <div className="w-16 h-16 ml-4 rounded-lg overflow-hidden">
-              {/* TODO: Small decorative photo */}
               <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600" />
             </div>
           </div>
@@ -687,7 +720,6 @@ function ProgramSection() {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-          {/* TODO: <Image src={coupleWalkingImage} alt="" fill className="object-cover" /> */}
           <div className="w-full h-full bg-gradient-to-b from-green-600 to-green-800" />
           
           {/* Decorative hill/flowers overlay */}
@@ -710,45 +742,44 @@ function ProgramSection() {
 // ============================================================
 function MapSection() {
   return (
-    <section className="relative py-20 pb-32 bg-gradient-to-b from-[#102010] to-[#0a1508]">
+    <section className="relative py-16 md:py-20 pb-24 md:pb-32 bg-gradient-to-b from-[#102010] to-[#0a1508]">
       <motion.div 
-        className="max-w-3xl mx-auto px-6"
+        className="max-w-3xl mx-auto px-4 sm:px-6"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
       >
         {/* Heading */}
-        <div className="text-center mb-8">
-          {/* TODO: Replace with exact venue name in Khmer */}
-          <h3 className="font-khmer text-3xl md:text-4xl text-white mb-3">
+        <div className="text-center mb-6 md:mb-8">
+          <h3 className="font-khmer text-2xl md:text-3xl lg:text-4xl text-white mb-3 md:mb-4 leading-relaxed">
             សមិទ្ធិមេគង្ហរភាវន័យអេវិថ្យ
           </h3>
-          <p className="font-khmer text-lg text-white/80">
+          <p className="font-khmer text-sm md:text-base lg:text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
             សំណុំ ជាអណ្តៅងារម្លានដែល លោកថ្នងអន្លើសមង លោកបែកពីមែ ផេងណា គីងពេជេងំ អង្កាវមំាន នៅពេជ្រង៍ជូមាក និងអេយៀងបែបំលីសំពោគជេង
           </p>
         </div>
 
         {/* Map container */}
-        <div className="bg-white rounded-2xl shadow-2xl p-2 mb-8">
+        <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl p-1.5 md:p-2 mb-6 md:mb-8">
           <iframe
             src={MAP_URL}
             width="100%"
-            height="320"
+            height="280"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="rounded-xl"
+            className="rounded-lg md:rounded-xl w-full"
           />
         </div>
 
         {/* Map subtitle */}
-        <div className="text-center mb-12">
-          <p className="font-english text-2xl md:text-3xl text-white/90 mb-2 italic">
+        <div className="text-center mb-8 md:mb-12">
+          <p className="font-english text-xl md:text-2xl lg:text-3xl text-white/90 mb-2 italic tracking-wide">
             Map Details
           </p>
-          <p className="font-english text-lg text-white/70 tracking-wide">
+          <p className="font-english text-base md:text-lg text-white/70 tracking-wide">
             Enjoy Your Day Off Tomorrow
           </p>
         </div>
@@ -757,45 +788,25 @@ function MapSection() {
       {/* Bottom decoration with CTA */}
       <div className="relative">
         {/* Cloud decoration */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 opacity-40">
-          {/* TODO: <Image src={cloudDecor} alt="" fill className="object-cover" /> */}
-          <div className="w-full h-full bg-gradient-to-t from-white/5 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 opacity-30">
+          <div className="w-full h-full bg-gradient-to-t from-white/5 via-white/3 to-transparent" />
         </div>
-
-        {/* Swans */}
-        <motion.div 
-          className="absolute bottom-8 left-8 w-32 h-32 opacity-80"
-          animate={{ x: [0, 10, 0] }}
-          transition={{ duration: 4, repeat: Infinity }}
-        >
-          {/* TODO: <Image src={swanLeft} alt="" width={128} height={128} /> */}
-          <div className="w-full h-full bg-white/10 rounded-full" />
-        </motion.div>
-        <motion.div 
-          className="absolute bottom-8 right-8 w-32 h-32 opacity-80"
-          animate={{ x: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-        >
-          {/* TODO: <Image src={swanRight} alt="" width={128} height={128} /> */}
-          <div className="w-full h-full bg-white/10 rounded-full" />
-        </motion.div>
 
         {/* CTA Button */}
         <motion.div 
-          className="relative z-10 text-center pt-24"
+          className="relative z-10 text-center pt-16 md:pt-24 pb-8 md:pb-12"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
         >
           <Link href="/gallery">
-            <button className="group relative px-12 py-4 bg-white/10 backdrop-blur-lg border-2 border-white/30 rounded-full text-white font-english text-xl font-medium tracking-wide hover:bg-white/20 hover:border-white/50 hover:scale-105 transition-all duration-300 shadow-2xl">
+            <button className="group relative px-8 md:px-12 py-3 md:py-4 bg-white/10 backdrop-blur-lg border-2 border-white/30 rounded-full text-white font-english text-lg md:text-xl font-medium tracking-wide hover:bg-white/20 hover:border-white/50 hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
               <span className="relative z-10">Go To Gallery</span>
               <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </button>
           </Link>
-          <p className="mt-4 text-white/50 text-sm">
-            {/* TODO: /gallery page to be implemented */}
+          <p className="mt-3 md:mt-4 text-white/50 text-xs md:text-sm">
             View our photo gallery
           </p>
         </motion.div>
@@ -811,7 +822,7 @@ export default function MainPage() {
   const [language, setLanguage] = useState<Language>('kh')
 
   return (
-    <main className="relative bg-[#18280f] text-white overflow-x-hidden">
+    <main className="relative bg-[#18280f] text-white overflow-x-hidden antialiased">
       <LanguageToggle language={language} setLanguage={setLanguage} />
       
       <HeroSection />
@@ -824,3 +835,5 @@ export default function MainPage() {
   )
 }
 
+
+///Figma End
