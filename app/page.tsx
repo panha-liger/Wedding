@@ -25,16 +25,7 @@ import calendarBackground from '../public/assets/calendar/background.png'
 import calendarPicker from '../public/assets/calendar/Calendar Picker.png'
 import calendarImage188 from '../public/assets/calendar/image 188 (1).png'
 // TIMELINE ASSETS
-import backgroundPolaroidAlt from '../public/assets/timeline/Background Polaroid-1.png'
-import backgroundPolaroid from '../public/assets/timeline/Background Polaroid.png'
-import cherubLeft from '../public/assets/timeline/Group 183.png'
-import cherubRight from '../public/assets/timeline/Group 184.png'
-import cloudLeft from '../public/assets/timeline/image 216.png'
-import cloudRight from '../public/assets/timeline/image 217.png'
-import cloudMid from '../public/assets/timeline/image 218.png'
-import timelineBgTop from '../public/assets/timeline/ONL01533_.png'
-import polaroidStack from '../public/assets/timeline/Polaroid Stack.png'
-import polaroid from '../public/assets/timeline/Polaroid.png'
+import timelineBgTop from '../public/assets/timeline/ONL01533.png'
 
 // ============================================================
 // TODO: Update this with your actual Google Maps embed URL
@@ -604,34 +595,34 @@ function TimelineItem({
   
   return (
     <motion.div 
-      className={`relative flex items-center gap-4 mb-8 ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}
+      className={`relative flex items-center gap-3 md:gap-4 mb-6 md:mb-8 ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}
       initial={{ opacity: 0, x: isLeft ? -30 : 30 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] as const }}
     >
       {/* Content */}
-      <div className={`flex-1 ${isLeft ? 'text-right pr-4' : 'text-left pl-4'}`}>
-        <p className="font-english text-lg md:text-xl text-white/90 font-semibold mb-1">
+      <div className={`flex-1 ${isLeft ? 'text-right pr-3 md:pr-4' : 'text-left pl-3 md:pl-4'}`}>
+        <p className="font-english text-base md:text-lg lg:text-xl text-white/90 font-semibold mb-1 md:mb-1.5">
           {event.time}
         </p>
-        <p className="font-khmer text-sm md:text-base text-white/70 leading-relaxed">
+        <p className="font-khmer text-xs md:text-sm lg:text-base text-white/70 leading-[1.6] md:leading-relaxed">
           {event.titleKh}
         </p>
       </div>
 
       {/* Connector dot */}
-      <div className="relative z-10">
-        <div className="w-8 h-8 rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center backdrop-blur-sm">
-          <span className="text-sm">{event.icon}</span>
+      <div className="relative z-10 flex-shrink-0">
+        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center backdrop-blur-sm shadow-lg">
+          <span className="text-base md:text-lg">{event.icon}</span>
         </div>
       </div>
 
       {/* Photo (if exists) */}
-      <div className="flex-1">
+      <div className={`flex-1 ${!event.photo ? 'hidden md:block' : ''}`}>
         {event.photo && (
-          <div className="w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden shadow-lg">
-            <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600" />
+          <div className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-lg overflow-hidden shadow-lg border border-white/10">
+            <div className="w-full h-full bg-gradient-to-br from-[#2d4a1a]/80 to-[#1a2f0f]/80" />
           </div>
         )}
       </div>
@@ -644,94 +635,12 @@ function TimelineItem({
 // ============================================================
 function ProgramSection() {
   return (
-    <section className="relative py-20 bg-[#18280f] overflow-hidden">
-      {/* Vertical dashed path */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 border-l-2 border-dashed border-white/20 -translate-x-1/2" />
-
-      <div className="relative z-10 max-w-3xl mx-auto px-6">
-        {/* Day 1 */}
-        <motion.div 
-          className="mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-        >
-          <div className="flex items-center gap-4 mb-12">
-            <motion.div 
-              className="w-16 h-16"
-              animate={floatingAnimation}
-            >
-              <div className="w-full h-full bg-white/10 rounded-full" />
-            </motion.div>
-            <h3 className="font-khmer text-3xl md:text-4xl text-white">
-              ថ្ងៃទី 1
-            </h3>
-          </div>
-
-          {day1Events.map((event, index) => (
-            <TimelineItem 
-              key={`day1-${index}`} 
-              event={event} 
-              index={index}
-              side={index % 2 === 0 ? 'left' : 'right'}
-            />
-          ))}
-        </motion.div>
-
-        {/* Day 2 */}
-        <motion.div 
-          className="mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-        >
-          <div className="flex items-center gap-4 mb-12">
-            <motion.div 
-              className="w-16 h-16"
-              animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 2 } }}
-            >
-              <div className="w-full h-full bg-white/10 rounded-full" />
-            </motion.div>
-            <h3 className="font-khmer text-3xl md:text-4xl text-white">
-              ថ្ងៃទី 2
-            </h3>
-            <div className="w-16 h-16 ml-4 rounded-lg overflow-hidden">
-              <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600" />
-            </div>
-          </div>
-
-          {day2Events.map((event, index) => (
-            <TimelineItem 
-              key={`day2-${index}`} 
-              event={event} 
-              index={index}
-              side={index % 2 === 0 ? 'left' : 'right'}
-            />
-          ))}
-        </motion.div>
-
-        {/* Bottom couple walking image */}
-        <motion.div 
-          className="relative w-full h-[50vh] rounded-t-[3rem] overflow-hidden mt-20"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-        >
-          <div className="w-full h-full bg-gradient-to-b from-green-600 to-green-800" />
-          
-          {/* Decorative hill/flowers overlay */}
-          <div className="absolute bottom-0 left-0 right-0 h-32">
-            <svg viewBox="0 0 1200 120" className="w-full h-full">
-              <path 
-                d="M0,60 Q300,0 600,60 T1200,60 L1200,120 L0,120 Z" 
-                fill="rgba(255,255,255,0.1)"
-              />
-            </svg>
-          </div>
-        </motion.div>
+    <section className="relative bg-[#233014] overflow-hidden py-12 sm:py-16">
+      <div className="relative mx-auto max-w-[430px] aspect-[393/1818] bg-[#233014]">
+        {/* Base layer only */}
+        <Image src={timelineBgTop} alt="Timeline base" fill className="object-cover" priority sizes="430px" />
+        <div className="absolute inset-0 bg-[linear-gradient(179.84deg,rgba(35,48,20,0.41)_0.14%,rgba(0,0,0,0)_37.54%,rgba(0,0,0,0.41)_99.86%)] pointer-events-none" />
+        <div className="absolute inset-x-0 top-[-65px] h-[267px] bg-[linear-gradient(180deg,#233014_0%,rgba(35,48,20,0)_16.45%,rgba(35,48,20,0.27)_60.93%,#233014_98.88%)] pointer-events-none" />
       </div>
     </section>
   )
